@@ -14,9 +14,25 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
             background: linear-gradient(135deg, #f5f0eb 0%, #faf8f5 50%, #f0e8e0 100%);
+            background-attachment: fixed;
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 46, 62, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 46, 62, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* ヘッダー */
@@ -26,6 +42,29 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 46, 62, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         .header-content h1 {
@@ -34,12 +73,30 @@
             margin-bottom: 5px;
             font-weight: 700;
             letter-spacing: 1px;
+            animation: slideDown 0.6s ease-out;
         }
 
         .header-content p {
             font-size: 0.95rem;
             color: #666;
             font-style: italic;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .breadcrumb {
@@ -53,6 +110,8 @@
             max-width: 900px;
             margin: 40px auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* セクション */
@@ -63,6 +122,23 @@
             margin-bottom: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             border-left: 5px solid #8b2e3e;
+            animation: fadeInUp 0.6s ease-out;
+            opacity: 0;
+            animation-fill-mode: both;
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         section h2 {
@@ -74,6 +150,39 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            animation: fadeInRight 0.6s ease-out;
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8b2e3e;
+            animation: expandWidth 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
         }
 
         /* リーダーセクション */
@@ -84,6 +193,26 @@
             padding: 25px;
             margin-bottom: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .leader-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 60%, rgba(139, 46, 62, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(139, 46, 62, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .leader-box > * {
+            position: relative;
+            z-index: 1;
         }
 
         .leader-name {
@@ -91,6 +220,7 @@
             color: #8b2e3e;
             font-weight: 600;
             margin-bottom: 12px;
+            animation: fadeIn 0.8s ease-out 0.4s both;
         }
 
         .leader-name::before {
@@ -102,6 +232,7 @@
             color: #555;
             font-style: italic;
             line-height: 1.8;
+            animation: fadeIn 0.8s ease-out 0.5s both;
         }
 
         .leader-comment::before {
@@ -129,14 +260,36 @@
             border: 2px solid #e8c8c8;
             border-radius: 10px;
             padding: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 46, 62, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .menu-card:hover::before {
+            opacity: 1;
         }
 
         .menu-card:hover {
-            box-shadow: 0 6px 16px rgba(139, 46, 62, 0.15);
-            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(139, 46, 62, 0.2), inset 0 0 20px rgba(139, 46, 62, 0.05);
+            transform: translateY(-6px) scale(1.02);
             border-color: #8b2e3e;
+        }
+
+        .menu-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .menu-number {
@@ -144,18 +297,48 @@
             color: #8b2e3e;
             font-weight: 700;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, #8b2e3e 0%, #c85a6b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .menu-number::after {
+            content: " ✨";
+            -webkit-text-fill-color: unset;
+            font-size: 1.2rem;
         }
 
         .menu-separator {
             background: linear-gradient(90deg, transparent, #8b2e3e, transparent);
-            height: 1px;
+            height: 2px;
             margin: 12px 0;
+            animation: expandLine 0.6s ease-out 0.3s both;
+        }
+
+        @keyframes expandLine {
+            from {
+                width: 0;
+                margin-left: 50%;
+                margin-right: 50%;
+            }
+            to {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
         }
 
         .menu-field {
             margin: 12px 0;
             font-size: 0.95rem;
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
         }
+
+        .menu-field:nth-child(2) { animation-delay: 0.4s; }
+        .menu-field:nth-child(3) { animation-delay: 0.5s; }
 
         .menu-field-label {
             color: #8b2e3e;
@@ -171,13 +354,21 @@
         }
 
         .ticket-section {
-            background: #fff5f0;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
             border-radius: 8px;
-            padding: 10px;
+            padding: 12px;
             margin-top: 15px;
             text-align: center;
             font-weight: 600;
             color: #8b2e3e;
+            border: 1px solid #e8c8c8;
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover .ticket-section {
+            background: linear-gradient(135deg, #ffd5cc 0%, #ffb3a0 100%);
+            border-color: #8b2e3e;
+            transform: scale(1.05);
         }
 
         /* 説明文 */
@@ -212,14 +403,80 @@
             text-decoration: underline;
         }
 
+        /* イベント情報ボックス */
+        .event-info {
+            background: linear-gradient(135deg, #8b2e3e 0%, #a83a4a 100%);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin: 50px auto;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(139, 46, 62, 0.25), 0 0 30px rgba(139, 46, 62, 0.1);
+            animation: slideUp 0.6s ease-out, pulse 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 6px 16px rgba(139, 46, 62, 0.25), 0 0 30px rgba(139, 46, 62, 0.1);
+            }
+            50% {
+                box-shadow: 0 6px 16px rgba(139, 46, 62, 0.35), 0 0 40px rgba(139, 46, 62, 0.2);
+            }
+        }
+
+        .event-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-info p {
+            font-size: 1.1rem;
+            margin: 0;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
         /* レスポンシブ */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
             section {
-                padding: 20px;
+                padding: 25px 20px;
             }
 
             .header-content h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .menu-grid {
@@ -227,7 +484,74 @@
             }
 
             section h2 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 18px 15px;
+                border-left: 3px solid #8b2e3e;
+            }
+
+            .header-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .header-content p {
+                font-size: 0.85rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section h2 {
+                font-size: 1.2rem;
+                gap: 5px;
+            }
+
+            .menu-card {
+                padding: 15px;
+            }
+
+            .menu-number {
+                font-size: 1.5rem;
+            }
+
+            .menu-field {
+                font-size: 0.85rem;
+            }
+
+            .leader-box {
+                padding: 18px;
+            }
+
+            .leader-name {
+                font-size: 1.1rem;
+            }
+
+            .leader-comment {
+                font-size: 0.95rem;
+            }
+
+            .event-info {
+                padding: 25px 15px;
+                margin: 35px auto;
+            }
+
+            .event-info h3 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+
+            .event-info p {
+                font-size: 0.95rem;
+            }
+
+            .info-text {
+                font-size: 0.85rem;
+                padding: 12px;
             }
         }
     </style>
@@ -308,20 +632,15 @@
             </p>
         </section>
 
-        <!-- 追加情報 -->
-        <section>
-            <h2>ℹ️ ご案内</h2>
-            <p class="info-text">
-                🗓️ <strong>開催日</strong>：9月19日（金）<br>
-                ⏰ <strong>営業時間</strong>：10:30 ～ 15:30<br>
-                📍 <strong>会場</strong>：N高キャンパスフェスティバル 2026<br>
-                💳 <strong>決済</strong>：チケット制（会場で販売）
-            </p>
-        </section>
+    </div>
+
+    <!-- イベント情報 -->
+    <div class="event-info">
+        <h3>🎉 N高キャンパスフェスティバル 9/19（金）</h3>
+        <p>N High School Hakataeki minami Campus</p>
     </div>
 
     <footer>
-        © 2026 N高キャンパスフェスティバル | ロシアンシュークリーム
     </footer>
 </body>
 </html>
