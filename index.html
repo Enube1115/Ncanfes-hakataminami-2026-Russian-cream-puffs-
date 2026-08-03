@@ -292,6 +292,28 @@
             border-color: #8b2e3e;
         }
 
+        /* タッチデバイス対応：ホバー効果を無効化 */
+        @media (hover: none) {
+            .menu-card:hover {
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(139, 46, 62, 0.15);
+            }
+
+            .menu-card:active {
+                box-shadow: 0 8px 24px rgba(139, 46, 62, 0.2), inset 0 0 20px rgba(139, 46, 62, 0.05);
+                transform: scale(1.02);
+            }
+
+            .back-button:hover {
+                transform: none;
+                box-shadow: 0 4px 12px rgba(139, 46, 62, 0.2);
+            }
+
+            .back-button:active {
+                transform: scale(0.98);
+            }
+        }
+
         .menu-card > * {
             position: relative;
             z-index: 1;
@@ -500,7 +522,6 @@
             z-index: 1;
         }
 
-        /* レスポンシブ */
         @media (max-width: 768px) {
             .container {
                 padding: 0 15px;
@@ -594,6 +615,109 @@
                 font-size: 0.9rem;
                 width: 100%;
                 max-width: 300px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* 超小画面対応（320px以下） */
+        @media (max-width: 320px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            section {
+                padding: 15px 12px;
+                border-left: 2px solid #8b2e3e;
+                margin-bottom: 20px;
+            }
+
+            .header-content h1 {
+                font-size: 1.3rem;
+                letter-spacing: 0.5px;
+            }
+
+            .header-content p {
+                font-size: 0.8rem;
+            }
+
+            .breadcrumb {
+                font-size: 0.75rem;
+            }
+
+            section h2 {
+                font-size: 1.1rem;
+                margin-bottom: 18px;
+                padding-bottom: 10px;
+            }
+
+            .menu-card {
+                padding: 12px;
+            }
+
+            .menu-number {
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+
+            .menu-intro {
+                font-size: 0.9rem;
+                padding: 12px;
+                margin-bottom: 18px;
+            }
+
+            .menu-field-label {
+                font-size: 0.85rem;
+            }
+
+            .menu-field-value {
+                font-size: 0.85rem;
+            }
+
+            .ticket-section {
+                padding: 10px;
+                font-size: 0.9rem;
+                margin-top: 12px;
+            }
+
+            .leader-box {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .leader-comment {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .event-info {
+                padding: 20px 12px;
+                margin: 30px auto;
+                border-radius: 10px;
+            }
+
+            .event-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+
+            .event-info p {
+                font-size: 0.9rem;
+            }
+
+            .back-button {
+                padding: 11px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                max-width: 280px;
+                min-height: 44px;
+                border-radius: 6px;
+            }
+
+            footer {
+                padding: 30px 12px;
             }
         }
     </style>
@@ -611,7 +735,7 @@
         <!-- メニュー -->
         <section>
             <h2>📋 メニュー</h2>
-            <p class="menu-intro">※ 3個のシュークリームが一セット。どれかのシュークリームに練り梅が入っています。</p>
+            <p class="menu-intro">※ 3個のシュークリームが1セット。どれかのシュークリームに練り梅が入っています。</p>
             <div class="menu-card">
                 <div class="menu-number">ロシアンシュークリーム</div>
                 <div class="menu-separator"></div>
